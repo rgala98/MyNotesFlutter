@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "448301698868",
+    "project_id": "mynotes-flutter-rgala",
+    "storage_bucket": "mynotes-flutter-rgala.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448301698868:android:24e6adb58097eadf0edf61",
+        "android_client_info": {
+          "package_name": "com.rgala.mynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448301698868-6vg8pbsa7sc6m0u29n6k1dafm2qss98u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsQfOxhj-FT0cWt5uteBMmNllax5x6kDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448301698868-6vg8pbsa7sc6m0u29n6k1dafm2qss98u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
