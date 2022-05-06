@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import "dart:developer" as devtools show log;
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -48,28 +50,27 @@ class _LoginViewState extends State<LoginView> {
           ),
           TextButton(
               onPressed: () async {
-                final email = _email.text;
+                final email = _email.text.trim();
                 final password = _password.text;
                 try {
                   final userCredential = await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: email, password: password);
-                  print(userCredential);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/notes',
+                    (route) => false,
+                  );
                 } on FirebaseAuthException catch (e) {
                   switch (e.code) {
                     case 'user-not-found':
-                      print('User not found');
+                      devtools.log("User Not Found");
                       break;
                     case 'wrong-password':
-                      print("Wrong Password");
+                      devtools.log("Wrong Password");
                       break;
                     default:
-                      print(e);
-                      print("Something else happened");
+                      devtools.log("Something else happened" + e.toString());
                   }
-                } catch (e) {
-                  print('INCORRECT');
-                  print(e);
                 }
               },
               child: const Text('Login')),
