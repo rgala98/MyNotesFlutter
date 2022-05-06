@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/constants/routes.dart';
 
 import "dart:developer" as devtools show log;
+
+import 'package:mynotes/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -56,21 +59,28 @@ class _RegisterViewState extends State<RegisterView> {
                 try {
                   final userCredential = await FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
-                          email: email, password: password);
+                    email: email,
+                    password: password,
+                  );
+                  final user = FirebaseAuth.instance.currentUser;
+                  await user?.sendEmailVerification();
+                  Navigator.of(context).pushNamed(verifyEmailRoute);
                 } on FirebaseAuthException catch (e) {
                   switch (e.code) {
                     case 'weak-password':
-                      devtools.log("Weak Password");
+                      await showErrorDialog(context, "Weak Password");
                       break;
                     case 'email-already-in-use':
-                      devtools.log('Email already in use');
+                      await showErrorDialog(context, 'Email already in use');
                       break;
                     case 'invalid-email':
-                      devtools.log('Invalid email entered');
+                      await showErrorDialog(context, 'Invalid email entered');
                       break;
                     default:
-                      devtools.log('Something else happend' + e.code);
+                      await showErrorDialog(context, 'Error: ${e.code}');
                   }
+                } catch (e) {
+                  await showErrorDialog(context, 'Error: ${e.toString()}');
                 }
               },
               child: const Text('Register')),
